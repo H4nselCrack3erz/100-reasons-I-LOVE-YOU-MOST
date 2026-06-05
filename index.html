@@ -3,61 +3,169 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Dearest Love</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<title>For You My Love ❤️</title>
 <style>
-body { background:#ffe6e6; font-family:'Poppins',sans-serif; padding:20px; }
-#envelope { text-align:center; padding:80px 20px; cursor:pointer; }
-.envelope-box { width:300px; height:200px; background:#ffb3c1; border-radius:10px; margin:0 auto; display:flex; align-items:center; justify-content:center; font-size:80px; }
-#letter { display:none; max-width:700px; margin:0 auto; background:white; padding:40px; border-radius:12px; }
-h1 { font-family:'Great+Vibes',cursive; text-align:center; color:#c41e3a; font-size:3rem; }
-.reason { padding:15px; margin:10px 0; border-left:4px solid #c41e3a; background:#fff5f5; }
-.reason-number { color:#c41e3a; font-weight:bold; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 50%, #ffd6e8 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', 'Comic Sans MS', cursive;
+    padding: 20px;
+    overflow-x: hidden;
+  }
+  
+  .heart {
+    position: fixed;
+    font-size: 20px;
+    color: #ff69b4;
+    animation: float 6s ease-in infinite;
+    z-index: 0;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  h1 {
+    text-align: center;
+    color: #ff1493;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.5);
+    animation: heartbeat 2s ease-in-out infinite;
+  }
+  
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  .message-box {
+    background: white;
+    border-radius: 25px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(255, 105, 180, 0.2);
+    border: 3px solid #ffb6c1;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .message-box::before {
+    content: '💕';
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    animation: sparkle 2s ease-in-out infinite;
+  }
+  
+  @keyframes sparkle {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.3) rotate(180deg); }
+  }
+
+  .message-box:nth-child(2n) { background: #fff0f5; border-color: #ffc0cb; }
+  .message-box:nth-child(3n) { background: #ffe4e1; border-color: #ffa0c0; }
+  .message-box:nth-child(4n) { background: #ffeef8; border-color: #ff91af; }
+
+  .message-box:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(255, 105, 180, 0.3);
+  }
+
+  .message {
+    font-size: 1.2rem;
+    color: #d63384;
+    line-height: 1.8;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #ff69b4;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
 </style>
 </head>
 <body>
 
-<div id="envelope" onclick="showLetter()">
-  <div class="envelope-box">❤️</div>
-  <h2 style="margin-top:20px;font-family:'Great Vibes',cursive;font-size:2.5rem;color:#5c3d3d">Tap to Open My Heart</h2>
-</div>
+<div id="hearts"></div>
 
-<div id="letter">
-  <h1>My Dearest Love</h1>
-  <p style="text-align:center;font-style:italic;margin-bottom:30px">To My Beautiful Girlfriend, June 5th 2026</p>
-  <div id="reasons"></div>
-  <p style="text-align:center;margin-top:40px;font-family:'Great Vibes',cursive;font-size:1.5rem;color:#c41e3a">Forever yours ❤️</p>
+<div class="container">
+  <h1>For You My Love 💖</h1>
+  <div id="messages"></div>
+  <div class="footer">Made with 100% love and missing you every second 💕</div>
 </div>
 
 <script>
-function showLetter(){
-  document.getElementById('envelope').style.display='none';
-  document.getElementById('letter').style.display='block';
-  
-  const lines = [
-    "I ache for your touch because my hands feel empty without you",
-    "I dream of holding you and forgetting distance ever existed", 
-    "The miles hurt because I miss the warmth of your skin",
-    "I count seconds knowing your hug will heal everything",
-    "My heart races thinking of closing this gap and running to you",
-    "Every night I imagine your arms making the world quiet",
-    "I long for your touch like rain longs for the ocean",
-    "Meeting you again will feel like coming home",
-    "I crave your touch so deeply it keeps me awake",
-    "The thought of your arms makes all waiting worth it"
-  ];
-  
-  let html = '';
-  for(let i=1; i<=100; i++){
-    html += `<div class="reason"><span class="reason-number">${i}.</span> I love you because ${lines[i%10]}</div>`;
+// Create floating hearts
+function createHearts() {
+  const heartsContainer = document.getElementById('hearts');
+  for(let i = 0; i < 15; i++) {
+    setTimeout(() => {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = ['❤️', '💕', '💖', '💗', '💓'][Math.floor(Math.random() * 5)];
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+      heart.style.animationDelay = Math.random() * 2 + 's';
+      heartsContainer.appendChild(heart);
+    }, i * 300);
   }
+}
+createHearts();
+
+// 20 different cute messages that rotate
+const messages = [
+  "Every time I think of you, I smile like an idiot hehe 💕",
+  "Missing you is my favorite hobby lately uwu 💖",
+  "If kisses were snowflakes, I'd send you a blizzard xoxo 💗",
+  "You + Me = Forever, and that's math I believe in! 💓",
+  "My heart beats in morse code and it spells your name ✨",
+  "I love you to the moon and back, then back again 🌙",
+  "You're my favorite notification in real life hehe 📱💕",
+  "Distance means nothing when someone means everything uwu 💖",
+  "I was made for you and you were made for me, periodt 💞",
+  "If I had a flower for every time I thought of you, I'd have a garden 🌸",
+  "You're the peanut butter to my jelly, the fries to my ketchup 🍟💕",
+  "I love you more than pizza, and that's saying a lot 🍕😭",
+  "My heart did a backflip when I met you hehe 🤸‍♀️💖",
+  "You're my sunshine on the cloudiest days ☀️💛",
+  "I miss your hugs like fish miss water hehe 🐠💕",
+  "If loving you was a crime, I'd be serving life uwu 🔒💖",
+  "You're my once in a million, my favorite hello 💫",
+  "I carry your heart with me, I carry it in my heart e.e 💝",
+  "You're the sprinkles on my cupcake, the cherry on top 🍒💕",
+  "I love you more than all the stars in the sky combined ✨💖"
+];
+
+const container = document.getElementById('messages');
+
+// Generate 100 messages with rotation
+for(let i = 0; i < 100; i++) {
+  const msgDiv = document.createElement('div');
+  msgDiv.className = 'message-box';
   
-  html += `<div style="margin-top:40px;padding:30px;background:#ffccd5;border-radius:12px;text-align:center;font-family:'Great Vibes',cursive;font-size:1.3rem">
-  I know you didn't read through all that cotiepatotie:> but if you did just wow:0, saying I love you 100 times would've been boring now wouldn't it? So instead I wrote 100 reasons why I love you:)
-  </div>`;
+  const randomMsg = messages[i % messages.length];
+  msgDiv.innerHTML = `<div class="message">${randomMsg}</div>`;
   
-  document.getElementById('reasons').innerHTML = html;
+  container.appendChild(msgDiv);
 }
 </script>
+
 </body>
 </html>
