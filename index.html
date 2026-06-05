@@ -1,172 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Dearest Love • A Letter From My Heart</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
-    <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            background: linear-gradient(135deg, #f8e4e8, #f5d5e0, #ffe6e6);
-            min-height:100vh;
-            font-family:'Poppins',sans-serif;
-            color:#3a2a2a;
-            overflow:hidden;
-            position:relative;
-        }
-        body::before {
-            content:''; position:fixed; top:0; left:0; width:100%; height:100%;
-            background:url('https://picsum.photos/id/1015/2000/2000') repeat;
-            opacity:0.07; pointer-events:none; z-index:-1;
-        }
-        #envelope-screen {
-            position:fixed; top:0; left:0; width:100%; height:100%;
-            display:flex; align-items:center; justify-content:center;
-            z-index:100; background:inherit; transition:opacity 1.2s ease;
-        }
-        .envelope-container { text-align:center; cursor:pointer; animation:gentleFloat 4s ease-in-out infinite; }
-        .envelope {
-            width:380px; height:260px; background:linear-gradient(#ffccd5,#ffb3c1);
-            border-radius:12px; position:relative; box-shadow:0 25px 50px rgba(0,0,0,0.25),
-            inset 0 10px 20px rgba(255,255,255,0.4); margin:0 auto;
-        }
-        .flap {
-            position:absolute; top:0; left:50%; width:0; height:0;
-            border-left:190px solid transparent; border-right:190px solid transparent;
-            border-bottom:130px solid #ff99aa; transform:translateX(-50%);
-            transition:all 0.8s cubic-bezier(0.6,0,0.4,1); z-index:2;
-        }
-        .heart {
-            position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-            font-size:110px; color:#e02e4a; filter:drop-shadow(0 10px 15px rgba(224,46,74,0.4));
-            z-index:3; animation:pulseHeart 2s ease-in-out infinite;
-        }
-        .stamp {
-            position:absolute; top:25px; right:25px; width:70px; height:70px;
-            background:#c41e3a; border-radius:4px; display:flex; align-items:center;
-            justify-content:center; color:white; font-family:'Great Vibes',cursive;
-            font-size:22px; box-shadow:0 4px 10px rgba(0,0,0,0.2); z-index:4;
-        }
-        .envelope-label {
-            margin-top:30px; font-family:'Great Vibes',cursive; font-size:2.8rem;
-            color:#5c3d3d; text-shadow:0 4px 15px rgba(0,0,0,0.1);
-        }
-        #letter-content {
-            max-width:920px; margin:40px auto; background:#fffef8; border-radius:12px;
-            box-shadow:0 30px 80px rgba(0,0,0,0.18), 0 0 0 14px #f8e4e8;
-            overflow:hidden; opacity:0; transform:scale(0.92);
-            transition:all 1.1s cubic-bezier(0.34,1.56,0.64,1);
-        }
-        .header { background:linear-gradient(to right,#c41e3a,#9b1c2e); color:white;
-            padding:55px 60px 45px; text-align:center; }
-        h1 { font-family:'Great Vibes',cursive; font-size:4.4rem; margin-bottom:10px; letter-spacing:3px; }
-        .to { font-family:'Playfair Display',serif; font-size:1.45rem; margin-bottom:12px; }
-        .date { font-size:1.1rem; opacity:0.9; font-style:italic; }
-        .content { padding:75px 80px 65px; line-height:1.85; font-size:1.16rem; }
-        .intro { font-family:'Playfair Display',serif; font-size:1.52rem; text-align:center;
-            margin-bottom:55px; color:#5c3d3d; font-style:italic; }
-        .reasons-container {
-            max-height:580px; overflow-y:auto; padding-right:25px;
-            scrollbar-width:thin; scrollbar-color:#e8b4c0 transparent;
-        }
-        .reason {
-            padding:19px 26px; margin-bottom:16px; border-radius:12px;
-            font-size:1.12rem; box-shadow:0 5px 14px rgba(0,0,0,0.1);
-            border-left:6px solid #c41e3a; transition:transform .3s;
-        }
-        .reason:hover { transform:translateX(8px); }
-        .reason-number { color:#c41e3a; font-weight:700; }
-        .closing { margin-top:65px; text-align:center; padding-top:45px; border-top:2px solid #f8e4e8; }
-        .signature { font-family:'Great Vibes',cursive; font-size:3.4rem; color:#c41e3a; margin:25px 0 8px; }
-
-        @keyframes gentleFloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-18px); } }
-        @keyframes pulseHeart { 0%,100% { transform:translate(-50%,-50%) scale(1); } 50% { transform:translate(-50%,-50%) scale(1.12); } }
-        @keyframes fadeInUp { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Dearest Love • A Letter From My Heart</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:linear-gradient(135deg,#f8e4e8,#f5d5e0,#ffe6e6); min-height:100vh; font-family:'Poppins',sans-serif; color:#3a2a2a; overflow-x:hidden; }
+#envelope-screen { position:fixed; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; z-index:100; background:inherit; transition:opacity 1.2s ease; }
+.envelope-container { text-align:center; cursor:pointer; animation:float 4s ease-in-out infinite; }
+@keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
+.envelope { width:380px; height:260px; background:linear-gradient(#ffccd5,#ffb3c1); border-radius:12px; position:relative; box-shadow:0 25px 50px rgba(0,0,0,0.25); margin:0 auto; }
+.flap { position:absolute; top:0; left:50%; border-left:190px solid transparent; border-right:190px solid transparent; border-bottom:130px solid #ff99aa; transform:translateX(-50%); transition:all 0.8s; z-index:2; }
+.open .flap { transform:translateX(-50%) rotateX(180deg); transform-origin:top; }
+.heart { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:110px; color:#e02e4a; animation:pulse 2s infinite; z-index:3; }
+@keyframes pulse { 0%,100%{transform:translate(-50%,-50%) scale(1);} 50%{transform:translate(-50%,-50%) scale(1.1);} }
+.stamp { position:absolute; top:25px; right:25px; width:70px; height:70px; background:#c41e3a; border-radius:4px; display:flex; align-items:center; justify-content:center; color:white; font-family:'Great Vibes',cursive; font-size:22px; }
+.envelope-label { margin-top:30px; font-family:'Great Vibes',cursive; font-size:2.8rem; color:#5c3d3d; }
+#letter-content { max-width:920px; margin:40px auto; background:#fffef8; border-radius:12px; box-shadow:0 30px 80px rgba(0,0,0,0.18); opacity:0; transform:scale(0.92); transition:all 1.1s; }
+.show { opacity:1; transform:scale(1); }
+.header { background:linear-gradient(to right,#c41e3a,#9b1c2e); color:white; padding:55px 60px; text-align:center; }
+h1 { font-family:'Great Vibes',cursive; font-size:4.4rem; margin-bottom:10px; }
+.to { font-family:'Playfair Display',serif; font-size:1.45rem; margin-bottom:12px; }
+.date { font-size:1.1rem; opacity:0.9; font-style:italic; }
+.content { padding:75px 80px; line-height:1.85; font-size:1.16rem; }
+.intro { font-family:'Playfair Display',serif; font-size:1.52rem; text-align:center; margin-bottom:55px; color:#5c3d3d; font-style:italic; }
+.reasons-container { max-height:580px; overflow-y:auto; padding-right:25px; }
+.reason { padding:19px 26px; margin-bottom:16px; border-radius:12px; font-size:1.12rem; border-left:6px solid #c41e3a; background:#fff; transition:transform .3s; }
+.reason:hover { transform:translateX(8px); }
+.reason-number { color:#c41e3a; font-weight:700; }
+.closing { margin-top:65px; text-align:center; font-family:'Great Vibes',cursive; font-size:1.8rem; color:#c41e3a; }
+</style>
 </head>
 <body>
 
-    <div id="envelope-screen">
-        <div class="envelope-container" onclick="openEnvelope()">
-            <div class="envelope">
-                <div class="flap"></div>
-                <div class="heart">❤️</div>
-                <div class="stamp">♥</div>
-            </div>
-            <div class="envelope-label">Tap to Open My Heart</div>
-        </div>
+<div id="envelope-screen">
+  <div class="envelope-container" onclick="openEnv()">
+    <div class="envelope" id="env">
+      <div class="flap"></div>
+      <div class="heart">❤️</div>
+      <div class="stamp">For You</div>
     </div>
+    <div class="envelope-label">Tap to Open My Heart</div>
+  </div>
+</div>
 
-    <div id="letter-content">
-        <div class="header">
-            <div class="to">To My Beautiful Girlfriend,</div>
-            <h1>My Dearest Love</h1>
-            <div class="date">June 5th, 2026</div>
-        </div>
+<div id="letter-content">
+  <div class="header">
+    <h1>My Dearest Love</h1>
+    <div class="to">To My Beautiful Girlfriend,</div>
+    <div class="date">June 5th, 2026</div>
+  </div>
+  <div class="content">
+    <p class="intro">Across these miles that separate us, my heart still finds its way to you every single day.</p>
+    <div class="reasons-container"></div>
+    <div class="closing">Forever yours ❤️</div>
+  </div>
+</div>
 
-        <div class="content">
-            <p class="intro">
-                Across these miles that separate us, my heart still finds its way to you every single day.<br>
-                In the quiet moments when I miss you most, I write this — a love letter filled with longing, poetry, and the thousand reasons you are my everything.
-            </p>
+<script>
+function openEnv(){
+  document.getElementById('env').classList.add('open');
+  setTimeout(()=>{
+    document.getElementById('envelope-screen').style.opacity='0';
+    document.getElementById('letter-content').classList.add('show');
+    setTimeout(()=>{document.getElementById('envelope-screen').style.display='none'},1200);
+    genMsgs();
+  },800);
+}
 
-            <div class="reasons-container" id="reasons"></div>
-
-            <div class="closing">
-                <p style="font-size:1.28rem; max-width:650px; margin:0 auto 35px; line-height:1.9;">
-                    I long for your comfort on my darkest days — you are my light. I ache for the moment I can finally hold you, 
-                    kiss your forehead, and never let the distance come between us again.<br><br>
-                    Until that beautiful day, know that every beat of my heart whispers your name.
-                </p>
-                <div style="font-size:3rem; margin:25px 0;">❤️</div>
-                <div class="signature">Forever yours,</div>
-                <p style="font-size:1.35rem; color:#5c3d3d;">Your loving boyfriend, who counts every sunrise until we’re together again</p>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const reasonsBase = [
-            "Your smile lights up my world even from a thousand miles away.",
-            "I long for the day I can finally hold you in my arms again.",
-            "Your voice is the sweetest melody that carries me through lonely nights.",
-            "In the quiet distance, your love feels like the warmest embrace.",
-            "You are my light when the miles feel endless and the nights feel cold.",
-            "Every message from you turns my longing into beautiful hope.",
-            "I dream of your laughter filling the space between us.",
-            "Your kindness reaches across oceans and heals my heart.",
-            "I ache for your touch, yet your love keeps me strong.",
-            "You are my home, no matter how far apart we are right now."
-        ];
-
-        const palette = ['#A7D8D2','#FFCC99','#FF9EBE','#F4E4A1','#D7BDE2','#A8C4E8','#B5E4D9','#F9C9D8','#F0D9A8','#B8E0E8'];
-
-        function openEnvelope() {
-            const envelopeScreen = document.getElementById('envelope-screen');
-            const letter = document.getElementById('letter-content');
-            envelopeScreen.style.opacity = '0';
-            setTimeout(() => {
-                envelopeScreen.style.display = 'none';
-                letter.style.opacity = '1';
-                letter.style.transform = 'scale(1)';
-                const container = document.getElementById("reasons");
-                container.innerHTML = '';
-                for (let i = 1; i <= 1000; i++) {
-                    const div = document.createElement("div");
-                    div.className = "reason";
-                    div.style.backgroundColor = palette[(i-1) % palette.length];
-                    div.innerHTML = `<span class="reason-number">${i}.</span> ${reasonsBase[(i-1) % reasonsBase.length]}`;
-                    div.style.animation = `fadeInUp 0.7s ease forwards`;
-                    div.style.animationDelay = `${Math.min((i % 60) * 0.025, 1.2)}s`;
-                    container.appendChild(div);
-                }
-            }, 800);
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if ((e.key === "Enter" || e.key === " ") && document.getElementById('envelope-screen').style.display !== 'none') openEnvelope();
-        });
-    </script>
+function genMsgs(){
+  const c = document.querySelector('.reasons-container');
+  const lines = [
+    "I ache for your touch because my hands feel empty without you",
+    "I dream of holding you and forgetting distance ever existed",
+    "The miles hurt because I miss the warmth of your skin",
+    "I count seconds knowing your hug will heal everything",
+    "My heart races thinking of closing this gap and running to you",
+    "Every night I imagine your arms making the world quiet",
+    "I long for your touch like rain longs for the ocean",
+    "Meeting you again will feel like coming home",
+    "I crave your touch so deeply it keeps me awake",
+    "The thought of your arms makes all waiting worth it"
+  ];
+  
+  for(let i = 1; i <= 100; i++){
+    c.innerHTML += `<div class="reason"><span class="reason-number">${i}.</span> I love you because ${lines[i % 10]}</div>`;
+  }
+  
+  c.innerHTML += `<div class="reason" style="margin-top:50px;background:linear-gradient(135deg,#ffe6e6,#ffccd5);border-left:6px solid #e02e4a;font-family:'Great Vibes',cursive;font-size:1.4rem;text-align:center;padding:30px">
+  I know you didn't read through all that cotiepatotie:> but if you did just wow:0, saying I love you 100 times would've been boring now wouldn't it? So instead I wrote 100 reasons why I love you:)
+  </div>`;
+}
+</script>
 </body>
 </html>
