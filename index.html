@@ -7,8 +7,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { background:linear-gradient(135deg,#f8e4e8,#f5d5e0,#ffe6e6); min-height:100vh; font-family:'Poppins',sans-serif; color:#3a2a2a; overflow-x:hidden; }
-#envelope-screen { position:fixed; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; z-index:100; background:inherit; transition:opacity 1.2s ease; }
+body { background:linear-gradient(135deg,#f8e4e8,#f5d5e0,#ffe6e6); min-height:100vh; font-family:'Poppins',sans-serif; color:#3a2a2a; }
+#envelope-screen { position:fixed; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; z-index:100; background:inherit; transition:opacity 1s ease; }
 .envelope-container { text-align:center; cursor:pointer; animation:float 4s ease-in-out infinite; }
 @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
 .envelope { width:380px; height:260px; background:linear-gradient(#ffccd5,#ffb3c1); border-radius:12px; position:relative; box-shadow:0 25px 50px rgba(0,0,0,0.25); margin:0 auto; }
@@ -18,8 +18,8 @@ body { background:linear-gradient(135deg,#f8e4e8,#f5d5e0,#ffe6e6); min-height:10
 @keyframes pulse { 0%,100%{transform:translate(-50%,-50%) scale(1);} 50%{transform:translate(-50%,-50%) scale(1.1);} }
 .stamp { position:absolute; top:25px; right:25px; width:70px; height:70px; background:#c41e3a; border-radius:4px; display:flex; align-items:center; justify-content:center; color:white; font-family:'Great Vibes',cursive; font-size:22px; }
 .envelope-label { margin-top:30px; font-family:'Great Vibes',cursive; font-size:2.8rem; color:#5c3d3d; }
-#letter-content { max-width:920px; margin:40px auto; background:#fffef8; border-radius:12px; box-shadow:0 30px 80px rgba(0,0,0,0.18); opacity:0; transform:scale(0.92); transition:all 1.1s; }
-.show { opacity:1; transform:scale(1); }
+#letter-content { max-width:920px; margin:40px auto; background:#fffef8; border-radius:12px; box-shadow:0 30px 80px rgba(0,0,0,0.18); opacity:0; transform:translateY(30px); transition:all 1s ease; display:none; }
+#letter-content.show { opacity:1; transform:translateY(0); display:block; }
 .header { background:linear-gradient(to right,#c41e3a,#9b1c2e); color:white; padding:55px 60px; text-align:center; }
 h1 { font-family:'Great Vibes',cursive; font-size:4.4rem; margin-bottom:10px; }
 .to { font-family:'Playfair Display',serif; font-size:1.45rem; margin-bottom:12px; }
@@ -27,8 +27,7 @@ h1 { font-family:'Great Vibes',cursive; font-size:4.4rem; margin-bottom:10px; }
 .content { padding:75px 80px; line-height:1.85; font-size:1.16rem; }
 .intro { font-family:'Playfair Display',serif; font-size:1.52rem; text-align:center; margin-bottom:55px; color:#5c3d3d; font-style:italic; }
 .reasons-container { max-height:580px; overflow-y:auto; padding-right:25px; }
-.reason { padding:19px 26px; margin-bottom:16px; border-radius:12px; font-size:1.12rem; border-left:6px solid #c41e3a; background:#fff; transition:transform .3s; }
-.reason:hover { transform:translateX(8px); }
+.reason { padding:19px 26px; margin-bottom:16px; border-radius:12px; font-size:1.12rem; border-left:6px solid #c41e3a; background:#fff; }
 .reason-number { color:#c41e3a; font-weight:700; }
 .closing { margin-top:65px; text-align:center; font-family:'Great Vibes',cursive; font-size:1.8rem; color:#c41e3a; }
 </style>
@@ -61,12 +60,17 @@ h1 { font-family:'Great Vibes',cursive; font-size:4.4rem; margin-bottom:10px; }
 
 <script>
 function openEnv(){
+  // Generate messages FIRST before showing
+  genMsgs();
+  
   document.getElementById('env').classList.add('open');
   setTimeout(()=>{
     document.getElementById('envelope-screen').style.opacity='0';
-    document.getElementById('letter-content').classList.add('show');
-    setTimeout(()=>{document.getElementById('envelope-screen').style.display='none'},1200);
-    genMsgs();
+    document.getElementById('letter-content').style.display='block';
+    setTimeout(()=>{
+      document.getElementById('letter-content').classList.add('show');
+      document.getElementById('envelope-screen').style.display='none';
+    }, 50);
   },800);
 }
 
@@ -85,13 +89,16 @@ function genMsgs(){
     "The thought of your arms makes all waiting worth it"
   ];
   
+  let html = '';
   for(let i = 1; i <= 100; i++){
-    c.innerHTML += `<div class="reason"><span class="reason-number">${i}.</span> I love you because ${lines[i % 10]}</div>`;
+    html += `<div class="reason"><span class="reason-number">${i}.</span> I love you because ${lines[i % 10]}</div>`;
   }
   
-  c.innerHTML += `<div class="reason" style="margin-top:50px;background:linear-gradient(135deg,#ffe6e6,#ffccd5);border-left:6px solid #e02e4a;font-family:'Great Vibes',cursive;font-size:1.4rem;text-align:center;padding:30px">
+  html += `<div class="reason" style="margin-top:50px;background:linear-gradient(135deg,#ffe6e6,#ffccd5);border-left:6px solid #e02e4a;font-family:'Great Vibes',cursive;font-size:1.4rem;text-align:center;padding:30px">
   I know you didn't read through all that cotiepatotie:> but if you did just wow:0, saying I love you 100 times would've been boring now wouldn't it? So instead I wrote 100 reasons why I love you:)
   </div>`;
+  
+  c.innerHTML = html;
 }
 </script>
 </body>
