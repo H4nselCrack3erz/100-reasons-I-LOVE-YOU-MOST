@@ -3,82 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Dearest Love • A Letter From My Heart</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<title>My Dearest Love</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:linear-gradient(135deg,#f8e4e8,#f5d5e0,#ffe6e6); min-height:100vh; font-family:'Poppins',sans-serif; color:#3a2a2a; }
-#envelope-screen { position:fixed; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; z-index:100; background:inherit; transition:opacity 1s ease; }
-.envelope-container { text-align:center; cursor:pointer; animation:float 4s ease-in-out infinite; }
-@keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
-.envelope { width:380px; height:260px; background:linear-gradient(#ffccd5,#ffb3c1); border-radius:12px; position:relative; box-shadow:0 25px 50px rgba(0,0,0,0.25); margin:0 auto; }
-.flap { position:absolute; top:0; left:50%; border-left:190px solid transparent; border-right:190px solid transparent; border-bottom:130px solid #ff99aa; transform:translateX(-50%); transition:all 0.8s; z-index:2; }
-.open .flap { transform:translateX(-50%) rotateX(180deg); transform-origin:top; }
-.heart { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:110px; color:#e02e4a; animation:pulse 2s infinite; z-index:3; }
-@keyframes pulse { 0%,100%{transform:translate(-50%,-50%) scale(1);} 50%{transform:translate(-50%,-50%) scale(1.1);} }
-.stamp { position:absolute; top:25px; right:25px; width:70px; height:70px; background:#c41e3a; border-radius:4px; display:flex; align-items:center; justify-content:center; color:white; font-family:'Great Vibes',cursive; font-size:22px; }
-.envelope-label { margin-top:30px; font-family:'Great Vibes',cursive; font-size:2.8rem; color:#5c3d3d; }
-#letter-content { max-width:920px; margin:40px auto; background:#fffef8; border-radius:12px; box-shadow:0 30px 80px rgba(0,0,0,0.18); opacity:0; transform:translateY(30px); transition:all 1s ease; display:none; }
-#letter-content.show { opacity:1; transform:translateY(0); display:block; }
-.header { background:linear-gradient(to right,#c41e3a,#9b1c2e); color:white; padding:55px 60px; text-align:center; }
-h1 { font-family:'Great Vibes',cursive; font-size:4.4rem; margin-bottom:10px; }
-.to { font-family:'Playfair Display',serif; font-size:1.45rem; margin-bottom:12px; }
-.date { font-size:1.1rem; opacity:0.9; font-style:italic; }
-.content { padding:75px 80px; line-height:1.85; font-size:1.16rem; }
-.intro { font-family:'Playfair Display',serif; font-size:1.52rem; text-align:center; margin-bottom:55px; color:#5c3d3d; font-style:italic; }
-.reasons-container { max-height:580px; overflow-y:auto; padding-right:25px; }
-.reason { padding:19px 26px; margin-bottom:16px; border-radius:12px; font-size:1.12rem; border-left:6px solid #c41e3a; background:#fff; }
-.reason-number { color:#c41e3a; font-weight:700; }
-.closing { margin-top:65px; text-align:center; font-family:'Great Vibes',cursive; font-size:1.8rem; color:#c41e3a; }
+body { background:#ffe6e6; font-family:'Poppins',sans-serif; padding:20px; }
+#envelope { text-align:center; padding:80px 20px; cursor:pointer; }
+.envelope-box { width:300px; height:200px; background:#ffb3c1; border-radius:10px; margin:0 auto; display:flex; align-items:center; justify-content:center; font-size:80px; }
+#letter { display:none; max-width:700px; margin:0 auto; background:white; padding:40px; border-radius:12px; }
+h1 { font-family:'Great+Vibes',cursive; text-align:center; color:#c41e3a; font-size:3rem; }
+.reason { padding:15px; margin:10px 0; border-left:4px solid #c41e3a; background:#fff5f5; }
+.reason-number { color:#c41e3a; font-weight:bold; }
 </style>
 </head>
 <body>
 
-<div id="envelope-screen">
-  <div class="envelope-container" onclick="openEnv()">
-    <div class="envelope" id="env">
-      <div class="flap"></div>
-      <div class="heart">❤️</div>
-      <div class="stamp">For You</div>
-    </div>
-    <div class="envelope-label">Tap to Open My Heart</div>
-  </div>
+<div id="envelope" onclick="showLetter()">
+  <div class="envelope-box">❤️</div>
+  <h2 style="margin-top:20px;font-family:'Great Vibes',cursive;font-size:2.5rem;color:#5c3d3d">Tap to Open My Heart</h2>
 </div>
 
-<div id="letter-content">
-  <div class="header">
-    <h1>My Dearest Love</h1>
-    <div class="to">To My Beautiful Girlfriend,</div>
-    <div class="date">June 5th, 2026</div>
-  </div>
-  <div class="content">
-    <p class="intro">Across these miles that separate us, my heart still finds its way to you every single day.</p>
-    <div class="reasons-container"></div>
-    <div class="closing">Forever yours ❤️</div>
-  </div>
+<div id="letter">
+  <h1>My Dearest Love</h1>
+  <p style="text-align:center;font-style:italic;margin-bottom:30px">To My Beautiful Girlfriend, June 5th 2026</p>
+  <div id="reasons"></div>
+  <p style="text-align:center;margin-top:40px;font-family:'Great Vibes',cursive;font-size:1.5rem;color:#c41e3a">Forever yours ❤️</p>
 </div>
 
 <script>
-function openEnv(){
-  // Generate messages FIRST before showing
-  genMsgs();
+function showLetter(){
+  document.getElementById('envelope').style.display='none';
+  document.getElementById('letter').style.display='block';
   
-  document.getElementById('env').classList.add('open');
-  setTimeout(()=>{
-    document.getElementById('envelope-screen').style.opacity='0';
-    document.getElementById('letter-content').style.display='block';
-    setTimeout(()=>{
-      document.getElementById('letter-content').classList.add('show');
-      document.getElementById('envelope-screen').style.display='none';
-    }, 50);
-  },800);
-}
-
-function genMsgs(){
-  const c = document.querySelector('.reasons-container');
   const lines = [
     "I ache for your touch because my hands feel empty without you",
-    "I dream of holding you and forgetting distance ever existed",
+    "I dream of holding you and forgetting distance ever existed", 
     "The miles hurt because I miss the warmth of your skin",
     "I count seconds knowing your hug will heal everything",
     "My heart races thinking of closing this gap and running to you",
@@ -90,15 +48,15 @@ function genMsgs(){
   ];
   
   let html = '';
-  for(let i = 1; i <= 100; i++){
-    html += `<div class="reason"><span class="reason-number">${i}.</span> I love you because ${lines[i % 10]}</div>`;
+  for(let i=1; i<=100; i++){
+    html += `<div class="reason"><span class="reason-number">${i}.</span> I love you because ${lines[i%10]}</div>`;
   }
   
-  html += `<div class="reason" style="margin-top:50px;background:linear-gradient(135deg,#ffe6e6,#ffccd5);border-left:6px solid #e02e4a;font-family:'Great Vibes',cursive;font-size:1.4rem;text-align:center;padding:30px">
+  html += `<div style="margin-top:40px;padding:30px;background:#ffccd5;border-radius:12px;text-align:center;font-family:'Great Vibes',cursive;font-size:1.3rem">
   I know you didn't read through all that cotiepatotie:> but if you did just wow:0, saying I love you 100 times would've been boring now wouldn't it? So instead I wrote 100 reasons why I love you:)
   </div>`;
   
-  c.innerHTML = html;
+  document.getElementById('reasons').innerHTML = html;
 }
 </script>
 </body>
